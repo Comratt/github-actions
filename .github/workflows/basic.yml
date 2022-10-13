@@ -2,6 +2,10 @@
 
 name: CI
 
+env:
+  PROJECT_NAME: GitHub Actions
+  PROJECT_SHA: aad
+
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push event but only for the "master" branch
@@ -15,7 +19,27 @@ on:
 jobs:
   my_job:
    runs-on: ubuntu-latest
-   
    steps:
     - name: Test Basic step
       run: echo "Hello message"
+
+  my_second_job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Second Job for Build
+        run: |
+          echo "Starting job for Build"
+          echo "Job names Build for ${{ env.PROJECT_NAME }}"
+
+  get_list_files:
+    runs-on: ubuntu-latest
+    steps:
+      - name: List of folders
+        run: ls -la
+
+      - name: Git clone my repo
+        uses: actions/checkout@v1
+
+      - name: List of folders after checkout
+        run: ls -la
